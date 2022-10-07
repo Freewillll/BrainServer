@@ -1,0 +1,29 @@
+# BrainTell后台服务说明
+1. 服务采用分层架构
+   1. service层为服务层，被HTTP直接调用，负责转换用户请求中的参数，并返回响应
+   2. ao数据聚合层，负责聚合多个do层返回数据
+   3. do数据层，直接负责数据库的相关调用
+   4. models是数据库协议
+   5. utils包含一些通用的接口，包括编解码、切图像、切SWC的函数
+   6. thirdparty第三方模块源码
+      1. CollServer实时协同服务代码
+      2. cropswc切SWC程序的源码
+   7. 本项目使用Go语言开发，
+2. 项目中涉及的工具，请先了解相关工具
+   1. Go语言
+   2. XORM
+   3. Redis
+   4. HTTP
+3. 项目使用config文件配置
+   1. mysql配置
+   2. redis配置
+   3. aeskey:aes加密字符串（未使用）
+   4. mainpath:主文件夹路径
+   5. cropprocess:cropswc和cropimage的并发数
+   6. emails:日报发送对象
+4. 项目使用Docker容器化
+   1. Nginx容器
+   2. MySQL容器
+   3. Redis容器
+   4. Web服务容器
+5. 
