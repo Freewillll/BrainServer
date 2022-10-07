@@ -17,7 +17,7 @@ func LockLocation(lockkey string, user string, expire int, ismutex bool) error {
 
 	conn := Pool.Get()
 	defer conn.Close()
-	if _, err := conn.Do("SELECT", 0); err != nil {
+	if _, err := conn.Do("SELECT", 0); err != nil { //  select the db having the specified numeric index,   new connection is 0
 		log.WithFields(log.Fields{
 			"event": "Redis",
 			"desc":  "Get conn failed",
@@ -25,7 +25,7 @@ func LockLocation(lockkey string, user string, expire int, ismutex bool) error {
 		return err
 	}
 
-	res, err := redis.Int64(conn.Do("EXISTS", lockkey))
+	res, err := redis.Int64(conn.Do("EXISTS", lockkey)) //   return if the key exist
 	if err != nil {
 		log.WithFields(log.Fields{
 			"event": "Redis",

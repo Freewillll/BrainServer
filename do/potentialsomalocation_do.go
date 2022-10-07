@@ -33,7 +33,7 @@ func QueryPotentialSomaLocation(pa *models.TPotentialsomalocation, pd *utils.Que
 	}
 
 	res := make([]*PotentialSomaLocation, 0)
-	for _, location := range locations {
+	for _, location := range locations { //   loop with slice
 		res = append(res, &PotentialSomaLocation{
 			Id:    int64(location.Id),
 			Image: location.Image,

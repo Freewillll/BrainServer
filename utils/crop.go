@@ -18,12 +18,12 @@ type BBox struct {
 }
 
 func GetBBImage(pa *BBox) (string, error) {
-	ctx := context.TODO() //   :=   type inference
-	if err := availableCropProcess.Acquire(ctx, 1); err != nil {
+	ctx := context.TODO()                                        //   :=   type inference
+	if err := availableCropProcess.Acquire(ctx, 1); err != nil { //   concurrence
 		log.Infof("Failed to acquire semaphore: %v\n", err)
 		return "", errors.New(fmt.Sprintf("Failed to acquire semaphore: %v", err))
 	}
-	defer availableCropProcess.Release(1)
+	defer availableCropProcess.Release(1) //   exec at the end of the function   push stack
 	savefile := Tmpdir + "/" + fmt.Sprintf("%s_%d_%d_%d_%d_%d_%d_%d.v3dpbd", pa.Obj,
 		int(pa.Pa1.X), int(pa.Pa1.Y), int(pa.Pa1.Z),
 		int(pa.Pa2.X), int(pa.Pa2.Y), int(pa.Pa2.Z),
@@ -38,7 +38,7 @@ func GetBBImage(pa *BBox) (string, error) {
 	out, err := cmd.Output()
 
 	if err != nil {
-		log.WithFields(
+		log.WithFields( //   add to log
 			log.Fields{
 				"event":  "crop image",
 				"status": "Failed",

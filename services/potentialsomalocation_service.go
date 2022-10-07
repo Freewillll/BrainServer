@@ -18,8 +18,8 @@ type GetPotentialSomaLocationParam struct {
 	User UserVerifyParam `json:"user"`
 }
 
-func (pa *GetPotentialSomaLocationParam) String() string {
-	jsonres, err := json.Marshal(pa)
+func (pa *GetPotentialSomaLocationParam) String() string { //  method func (receiver name Type) methodName(params) returnType
+	jsonres, err := json.Marshal(pa) //   marshal to json
 	if err != nil {
 		return ""
 	}
@@ -29,7 +29,7 @@ func (pa *GetPotentialSomaLocationParam) String() string {
 func (pa *GetPotentialSomaLocationParam) FromJsonString(jsonstr string) (utils.RequestParam, error) {
 	if err := json.Unmarshal([]byte(jsonstr), pa); err != nil {
 		return nil, err
-	}
+	} //    unmarshal from jsonstring to struct
 	return pa, nil
 }
 func GetPotentialSomaLocation(w http.ResponseWriter, r *http.Request) {
